@@ -1,0 +1,233 @@
+{
+    "app_info": {
+        "name": "KebunKu",
+        "version": "1.0.0-prototype",
+        "theme_color_primary": "#27AE60",
+        "theme_color_secondary": "#F39C12"
+    },
+    "current_user": {
+        "id": "USR-001",
+        "name": "Pengguna Dummy",
+        "email": "user@dummy.com",
+        "password": "password123",
+        "role": "pembeli",
+        "saldo": 150000,
+        "addresses": [
+            {
+                "id": "ADDR-1",
+                "label": "Rumah",
+                "address": "Jl. Raya Ciomas No. 45, Bogor, Jawa Barat",
+                "is_primary": true
+            }
+        ],
+        "my_store": {
+            "is_active": false,
+            "store_name": "",
+            "products": []
+        }
+    },
+    "products": [
+        {
+            "id": "PRD-S01",
+            "name": "Bayam Hijau Segar",
+            "category": "Sayur",
+            "price": 4000,
+            "stock": 50,
+            "is_promo": false,
+            "discount_percentage": 0,
+            "image_url": "Asset/Photo/Sayur/Bayam_Hijau_Segar.jpg"
+        },
+        {
+            "id": "PRD-S02",
+            "name": "Kangkung Cabut",
+            "category": "Sayur",
+            "price": 3500,
+            "stock": 45,
+            "is_promo": false,
+            "discount_percentage": 0,
+            "image_url": "Asset/Photo/Sayur/Kangkung_Cabut.jpg"
+        },
+        {
+            "id": "PRD-S03",
+            "name": "Wortel Brastagi",
+            "category": "Sayur",
+            "price": 15000,
+            "stock": 30,
+            "is_promo": true,
+            "discount_percentage": 20,
+            "image_url": "Asset/Photo/Sayur/Wortel_Brastagi.jpg"
+        },
+        {
+            "id": "PRD-S04",
+            "name": "Tomat Merah",
+            "category": "Sayur",
+            "price": 12000,
+            "stock": 40,
+            "is_promo": false,
+            "discount_percentage": 0,
+            "image_url": "Asset/Photo/Sayur/Tomat_Merah.png"
+        },
+        {
+            "id": "PRD-S05",
+            "name": "Cabai Merah Keriting",
+            "category": "Sayur",
+            "price": 45000,
+            "stock": 20,
+            "is_promo": true,
+            "discount_percentage": 25,
+            "image_url": "Asset/Photo/Sayur/Cabai_Merah_Keriting.jpg"
+        },
+        {
+            "id": "PRD-S06",
+            "name": "Bawang Merah",
+            "category": "Sayur",
+            "price": 35000,
+            "stock": 25,
+            "is_promo": false,
+            "discount_percentage": 0,
+            "image_url": "Asset/Photo/Sayur/Bawang_Merah.jpg"
+        },
+        {
+            "id": "PRD-S07",
+            "name": "Bawang Putih",
+            "category": "Sayur",
+            "price": 32000,
+            "stock": 30,
+            "is_promo": false,
+            "discount_percentage": 0,
+            "image_url": "Asset/Photo/Sayur/Bawang_Putih.jpg"
+        },
+        {
+            "id": "PRD-S08",
+            "name": "Sawi Hijau (Caisim)",
+            "category": "Sayur",
+            "price": 5000,
+            "stock": 60,
+            "is_promo": false,
+            "discount_percentage": 0,
+            "image_url": "Asset/Photo/Sayur/Sawi_Hijau_(Caisim).jpg"
+        },
+        {
+            "id": "PRD-S09",
+            "name": "Brokoli Hijau",
+            "category": "Sayur",
+            "price": 25000,
+            "stock": 15,
+            "is_promo": true,
+            "discount_percentage": 30,
+            "image_url": "Asset/Photo/Sayur/Brokoli_Hijau.png"
+        },
+        {
+            "id": "PRD-S10",
+            "name": "Kentang Dieng",
+            "category": "Sayur",
+            "price": 18000,
+            "stock": 35,
+            "is_promo": false,
+            "discount_percentage": 0,
+            "image_url": "Asset/Photo/Sayur/Kentang_Dieng.jpg"
+        },
+        {
+            "id": "PRD-B01",
+            "name": "Apel Malang",
+            "category": "Buah",
+            "price": 25000,
+            "stock": 40,
+            "is_promo": false,
+            "discount_percentage": 0,
+            "image_url": "Asset/Photo/Buah/Apel_Malang.jpg"
+        },
+        {
+            "id": "PRD-B02",
+            "name": "Jeruk Manis",
+            "category": "Buah",
+            "price": 22000,
+            "stock": 30,
+            "is_promo": true,
+            "discount_percentage": 20,
+            "image_url": "Asset/Photo/Buah/Jeruk_Manis.jpg"
+        },
+        {
+            "id": "PRD-B03",
+            "name": "Pisang Cavendish",
+            "category": "Buah",
+            "price": 18000,
+            "stock": 25,
+            "is_promo": false,
+            "discount_percentage": 0,
+            "image_url": "Asset/Photo/Buah/Pisang_cavendish.jpg"
+        },
+        {
+            "id": "PRD-B04",
+            "name": "Mangga Harumanis",
+            "category": "Buah",
+            "price": 30000,
+            "stock": 20,
+            "is_promo": true,
+            "discount_percentage": 25,
+            "image_url": "Asset/Photo/Buah/Mangga_Harumanis.jpeg"
+        },
+        {
+            "id": "PRD-B05",
+            "name": "Semangka Merah",
+            "category": "Buah",
+            "price": 15000,
+            "stock": 15,
+            "is_promo": false,
+            "discount_percentage": 0,
+            "image_url": "Asset/Photo/Buah/Semangka_Merah.jpg"
+        },
+        {
+            "id": "PRD-B06",
+            "name": "Melon Hijau",
+            "category": "Buah",
+            "price": 20000,
+            "stock": 12,
+            "is_promo": true,
+            "discount_percentage": 30,
+            "image_url": "Asset/Photo/Buah/Melon_Hijau.jpg"
+        },
+        {
+            "id": "PRD-B07",
+            "name": "Pepaya California",
+            "category": "Buah",
+            "price": 12000,
+            "stock": 18,
+            "is_promo": false,
+            "discount_percentage": 0,
+            "image_url": "Asset/Photo/Buah/Pepaya California.jpg"
+        },
+        {
+            "id": "PRD-B08",
+            "name": "Alpukat Mentega",
+            "category": "Buah",
+            "price": 35000,
+            "stock": 22,
+            "is_promo": false,
+            "discount_percentage": 0,
+            "image_url": "Asset/Photo/Buah/Alpukat_Mentega.jpg"
+        },
+        {
+            "id": "PRD-B09",
+            "name": "Anggur Merah",
+            "category": "Buah",
+            "price": 45000,
+            "stock": 10,
+            "is_promo": false,
+            "discount_percentage": 0,
+            "image_url": "Asset/Photo/Buah/Anggur_Merah.jpg"
+        },
+        {
+            "id": "PRD-B10",
+            "name": "Nanas Subang",
+            "category": "Buah",
+            "price": 10000,
+            "stock": 25,
+            "is_promo": false,
+            "discount_percentage": 0,
+            "image_url": "Asset/Photo/Buah/Nanas_Subang.jpg"
+        }
+    ],
+    "cart": [],
+    "transactions": []
+}

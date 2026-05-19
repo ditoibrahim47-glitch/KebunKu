@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>KebunKu - Aplikasi Petani</title>
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#27AE60',
+                        secondary: '#F39C12',
+                        dark: '#2C3E50',
+                        light: '#FAFAFA'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="antialiased">
+
+    <!-- Wrapper for Mobile First View -->
+    <div class="app-wrapper" id="main-wrapper">
+
+        <!-- ================= LOGIN SCREEN ================= -->
+        <div id="login-view" class="min-h-screen flex flex-col justify-center px-6 bg-white">
+            <div class="text-center mb-10">
+                <h1 class="text-4xl font-poppins font-bold text-primary mb-2">Kebun<span
+                        class="text-secondary">Ku</span></h1>
+                <p class="text-gray-500 text-sm">Belanja hasil bumi langsung dari petani.</p>
+            </div>
+
+            <form id="login-form" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-dark mb-1">Email</label>
+                    <input type="email" id="login-email" class="input-field" value="user1@gmail.com" required>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-dark mb-1">Password</label>
+                    <input type="password" id="login-password" class="input-field" value="password123" required>
+                </div>
+                <button type="submit"
+                    class="w-full bg-primary text-white font-semibold py-3 rounded-xl mt-6 hover:bg-green-600 transition">
+                    Masuk
+                </button>
+            </form>
+            <p class="text-center text-sm text-gray-400 mt-6">Versi Prototype 1.1</p>
+        </div>
+
+        <!-- ================= MAIN APP SCREEN ================= -->
+        <div id="app-view" class="hidden relative pb-[70px]">
+
+            <!-- 1. BERANDA TAB -->
+            <div id="beranda-tab" class="tab-content p-4">
+                <!-- Top Bar -->
+                <div class="flex items-center gap-3 mb-6 sticky top-0 bg-light py-2 z-10">
+                    <div class="relative flex-1">
+                        <i
+                            class="ph ph-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg"></i>
+                        <input type="text" id="search-input" placeholder="Cari sayur atau buah..."
+                            class="w-full bg-white border border-gray-200 rounded-full py-2 pl-10 pr-4 text-sm focus:outline-none focus:border-primary">
+                    </div>
+                    <button
+                        class="w-10 h-10 bg-white rounded-full flex items-center justify-center border border-gray-200 text-gray-600">
+                        <i class="ph ph-chat-circle-dots text-xl"></i>
+                    </button>
+                </div>
+
+                <!-- Banner/Hero -->
+                <div
+                    class="bg-primary rounded-2xl p-5 text-white mb-6 shadow-md bg-gradient-to-r from-primary to-green-500">
+                    <h2 class="font-poppins font-semibold text-lg mb-1">Panen Segar Hari Ini!</h2>
+                    <p class="text-sm opacity-90 mb-3">Dapatkan produk terbaik langsung dari kebun.</p>
+                    <button class="bg-secondary text-white text-xs font-semibold px-4 py-2 rounded-full">Beli
+                        Sekarang</button>
+                </div>
+
+                <!-- Kategori Sayur -->
+                <div class="mb-6">
+                    <div class="flex justify-between items-center mb-3">
+                        <h3 class="font-poppins font-semibold text-dark">Sayuran Segar 🥬</h3>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3" id="grid-sayur"></div>
+                </div>
+
+                <!-- Kategori Buah -->
+                <div class="mb-6">
+                    <div class="flex justify-between items-center mb-3">
+                        <h3 class="font-poppins font-semibold text-dark">Buah Pilihan 🍎</h3>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3" id="grid-buah"></div>
+                </div>
+            </div>
+
+            <!-- 2. PROMO TAB -->
+            <div id="promo-tab" class="tab-content hidden p-4">
+                <h2 class="font-poppins font-bold text-xl text-dark mb-4 mt-2">Promo Spesial 🌟</h2>
+                <div class="grid grid-cols-2 gap-3" id="grid-promo"></div>
+            </div>
+
+            <!-- 3. KERANJANG TAB -->
+            <div id="keranjang-tab" class="tab-content hidden flex flex-col min-h-[calc(100vh-70px)]">
+                <div class="p-4 border-b border-gray-200 bg-white sticky top-0 z-10">
+                    <h2 class="font-poppins font-bold text-xl text-dark text-center">Keranjang Belanja</h2>
+                </div>
+
+                <div class="flex-1 p-4 overflow-y-auto" id="cart-list">
+                    <div id="empty-cart-msg" class="text-center text-gray-400 mt-10 hidden">
+                        <i class="ph ph-shopping-cart text-5xl mb-2"></i>
+                        <p>Keranjang Anda kosong</p>
+                    </div>
+                </div>
+
+                <div
+                    class="bg-white p-4 border-t border-gray-200 rounded-t-2xl sticky bottom-0 z-10 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
+                    <div class="flex justify-between mb-3 text-sm">
+                        <span class="text-gray-500">Total Harga</span>
+                        <span class="font-bold text-lg text-primary" id="cart-total">Rp 0</span>
+                    </div>
+                    <button id="btn-checkout"
+                        class="w-full bg-primary text-white font-semibold py-3 rounded-xl disabled:opacity-50">
+                        Checkout Sekarang
+                    </button>
+                </div>
+            </div>
+
+            <!-- 4. AKUN TAB -->
+            <div id="akun-tab" class="tab-content hidden p-4">
+                <h2 class="font-poppins font-bold text-xl text-dark mb-4 mt-2 text-center">Akun Saya</h2>
+
+                <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-4 mb-4">
+                    <div class="w-14 h-14 bg-primary text-white rounded-full flex items-center justify-center font-bold text-xl"
+                        id="profile-avatar">P</div>
+                    <div>
+                        <h3 class="font-bold text-dark" id="profile-name">Pengguna</h3>
+                        <p class="text-sm text-gray-500" id="profile-email">email</p>
+                    </div>
+                </div>
+
+                <div
+                    class="bg-gradient-to-r from-green-50 to-emerald-50 p-4 rounded-2xl border border-green-100 mb-6 flex justify-between items-center">
+                    <div>
+                        <p class="text-xs text-green-600 mb-1">Saldo KebunKu</p>
+                        <h3 class="font-bold text-primary text-xl" id="profile-saldo">Rp 0</h3>
+                    </div>
+                    <button
+                        class="bg-white text-primary text-xs font-semibold px-3 py-2 rounded-lg border border-green-200">Top
+                        Up</button>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden mb-6">
+                    <button id="btn-toko-saya"
+                        class="w-full flex items-center justify-between p-4 border-b border-gray-50 active:bg-gray-50 text-left">
+                        <div class="flex items-center gap-3">
+                            <div
+                                class="w-8 h-8 rounded-full bg-orange-100 text-secondary flex items-center justify-center">
+                                <i class="ph ph-storefront"></i></div>
+                            <span class="font-medium text-dark text-sm">Toko Saya</span>
+                        </div>
+                        <i class="ph ph-caret-right text-gray-400"></i>
+                    </button>
+                    <button onclick="renderTransaksi()"
+                        class="w-full flex items-center justify-between p-4 border-b border-gray-50 active:bg-gray-50 text-left">
+                        <div class="flex items-center gap-3">
+                            <div
+                                class="w-8 h-8 rounded-full bg-blue-100 text-blue-500 flex items-center justify-center">
+                                <i class="ph ph-receipt"></i></div>
+                            <span class="font-medium text-dark text-sm">Riwayat Transaksi</span>
+                        </div>
+                        <i class="ph ph-caret-right text-gray-400"></i>
+                    </button>
+                    <button class="w-full flex items-center justify-between p-4 active:bg-gray-50 text-left">
+                        <div class="flex items-center gap-3">
+                            <div
+                                class="w-8 h-8 rounded-full bg-gray-100 text-gray-600 flex items-center justify-center">
+                                <i class="ph ph-gear"></i></div>
+                            <span class="font-medium text-dark text-sm">Pengaturan Akun</span>
+                        </div>
+                        <i class="ph ph-caret-right text-gray-400"></i>
+                    </button>
+                </div>
+
+                <button id="btn-logout"
+                    class="w-full bg-red-50 text-red-500 font-semibold py-3 rounded-xl border border-red-100">
+                    Keluar
+                </button>
+            </div>
+
+            <!-- ================= OVERLAY VIEWS (Sub-Screens) ================= -->
+
+            <!-- DETAIL PRODUK -->
+            <div id="detail-tab"
+                class="tab-content hidden absolute inset-0 bg-white z-20 overflow-y-auto min-h-[100vh]">
+                <div class="relative h-64 bg-gray-100">
+                    <img id="detail-img" src="" class="w-full h-full object-cover" alt="Product Image">
+                    <button onclick="navToBack()"
+                        class="absolute top-4 left-4 w-10 h-10 bg-white/80 rounded-full flex items-center justify-center backdrop-blur-sm text-dark">
+                        <i class="ph ph-arrow-left text-xl"></i>
+                    </button>
+                </div>
+                <div class="p-5 pb-24">
+                    <div class="flex justify-between items-start mb-2">
+                        <div>
+                            <span id="detail-category"
+                                class="text-xs font-semibold text-primary uppercase tracking-wider mb-1 block">Kategori</span>
+                            <h2 id="detail-name" class="font-poppins font-bold text-2xl text-dark">Nama Produk</h2>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <div id="detail-price-promo" class="text-sm text-gray-400 line-through hidden">Rp 0</div>
+                        <div class="flex items-end gap-2">
+                            <span id="detail-price" class="font-bold text-2xl text-primary">Rp 0</span>
+                            <span id="detail-unit" class="text-sm text-gray-500 mb-1">/ unit</span>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl mb-6 border border-gray-100">
+                        <div
+                            class="w-10 h-10 bg-orange-100 text-secondary rounded-full flex items-center justify-center text-lg">
+                            <i class="ph ph-storefront"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-500">Dijual oleh</p>
+                            <p id="detail-store" class="font-semibold text-dark text-sm">Nama Toko</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="font-poppins font-semibold text-dark mb-2">Deskripsi Produk</h4>
+                        <p id="detail-desc" class="text-sm text-gray-600 leading-relaxed">Deskripsi</p>
+                    </div>
+                </div>
+
+                <!-- Sticky Bottom Action Detail -->
+                <div
+                    class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[480px] p-4 bg-white border-t border-gray-200 z-30">
+                    <button id="detail-btn-add"
+                        class="w-full bg-primary text-white font-semibold py-3 rounded-xl flex items-center justify-center gap-2">
+                        <i class="ph ph-shopping-cart-simple text-lg"></i> Tambah ke Keranjang
+                    </button>
+                </div>
+            </div>
+
+            <!-- BUKA TOKO FORM -->
+            <div id="buka-toko-tab" class="tab-content hidden absolute inset-0 bg-white z-20 flex flex-col h-[100vh]">
+                <div class="p-4 border-b border-gray-200 flex items-center justify-between sticky top-0 bg-white">
+                    <div class="flex items-center gap-3">
+                        <button onclick="navTo('akun-tab')" class="text-dark"><i
+                                class="ph ph-arrow-left text-xl"></i></button>
+                        <h2 class="font-poppins font-bold text-lg text-dark">Buka Toko</h2>
+                    </div>
+                </div>
+                <div class="p-6 flex-1 overflow-y-auto">
+                    <div class="text-center mb-6">
+                        <div
+                            class="w-16 h-16 bg-orange-100 text-secondary rounded-full flex items-center justify-center text-3xl mx-auto mb-3">
+                            <i class="ph ph-storefront"></i></div>
+                        <h3 class="font-poppins font-bold text-lg text-dark">Mulai Jualan Hasil Tani</h3>
+                        <p class="text-sm text-gray-500">Lengkapi data berikut untuk membuka etalase toko Anda sendiri.
+                        </p>
+                    </div>
+                    <form id="form-buka-toko" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-dark mb-1">Nama Toko</label>
+                            <input type="text" id="reg-store-name" class="input-field"
+                                placeholder="Contoh: Kebun Pak Budi" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-dark mb-1">Nama Penjual</label>
+                            <input type="text" id="reg-seller-name" class="input-field" placeholder="Nama Anda"
+                                required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-dark mb-1">Email Kontak</label>
+                            <input type="email" id="reg-email" class="input-field" placeholder="email@toko.com"
+                                required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-dark mb-1">Nomor HP / WA</label>
+                            <input type="tel" id="reg-phone" class="input-field" placeholder="0812xxx" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-dark mb-1">Alamat Toko / Kebun</label>
+                            <textarea id="reg-address" class="input-field" rows="3" placeholder="Alamat lengkap"
+                                required></textarea>
+                        </div>
+                        <div class="flex gap-3 pt-4 pb-10">
+                            <button type="button" onclick="navTo('akun-tab')"
+                                class="flex-1 bg-gray-100 text-gray-600 font-semibold py-3 rounded-xl">Cancel</button>
+                            <button type="submit"
+                                class="flex-1 bg-secondary text-white font-semibold py-3 rounded-xl">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- TOKO SAYA (Penjual Aktif) -->
+            <div id="toko-tab" class="tab-content hidden absolute inset-0 bg-gray-50 z-20 flex flex-col min-h-[100vh]">
+                <div class="p-4 border-b border-gray-200 flex items-center justify-between sticky top-0 bg-white z-10">
+                    <div class="flex items-center gap-3">
+                        <button onclick="navTo('akun-tab')" class="text-dark"><i
+                                class="ph ph-arrow-left text-xl"></i></button>
+                        <h2 class="font-poppins font-bold text-lg text-dark">Kelola Toko</h2>
+                    </div>
+                </div>
+
+                <!-- Store Header -->
+                <div class="bg-white p-5 shadow-sm mb-2">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="font-poppins font-bold text-xl text-dark" id="my-store-name">Nama Toko</h3>
+                            <p class="text-sm text-gray-500 mb-3"><i class="ph ph-map-pin mr-1"></i><span
+                                    id="my-store-address">Alamat</span></p>
+                        </div>
+                        <button class="bg-gray-100 p-2 rounded-full text-gray-600"><i
+                                class="ph ph-pencil-simple"></i></button>
+                    </div>
+                    <button onclick="toggleFormTambah()"
+                        class="w-full bg-secondary text-white font-semibold py-2 rounded-lg text-sm flex items-center justify-center gap-2">
+                        <i class="ph ph-plus"></i> Tambah Produk Baru
+                    </button>
+                </div>
+
+                <!-- Form Tambah Produk (Hidden by default) -->
+                <div id="section-tambah-produk" class="bg-white p-5 shadow-sm mb-2 hidden">
+                    <div class="flex justify-between items-center mb-3">
+                        <h4 class="font-bold text-dark">Tambah Produk</h4>
+                        <button onclick="toggleFormTambah()" class="text-gray-400"><i
+                                class="ph ph-x text-lg"></i></button>
+                    </div>
+                    <form id="form-tambah-produk" class="space-y-3">
+                        <div>
+                            <label class="block text-xs font-medium text-dark mb-1">Nama Produk</label>
+                            <input type="text" id="prod-name" class="input-field text-sm"
+                                placeholder="Contoh: Bayam Organik" required>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-xs font-medium text-dark mb-1">Kategori</label>
+                                <select id="prod-cat" class="input-field text-sm bg-white">
+                                    <option value="Sayur">Sayur</option>
+                                    <option value="Buah">Buah</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-dark mb-1">Keterangan Barang</label>
+                                <select id="prod-unit" class="input-field text-sm bg-white">
+                                    <option value="Per Kg">Per Kg</option>
+                                    <option value="Per ikat">Per ikat</option>
+                                    <option value="Per Gr">Per Gr</option>
+                                    <option value="Per Pack">Per Pack</option>
+                                    <option value="Per Pcs">Per Pcs</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-xs font-medium text-dark mb-1">Stok (Qty)</label>
+                                <input type="number" id="prod-qty" class="input-field text-sm" placeholder="10" required
+                                    min="1">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-dark mb-1">Harga (Rp)</label>
+                                <input type="number" id="prod-price" class="input-field text-sm" placeholder="5000"
+                                    required min="100">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-dark mb-1">Deskripsi Produk</label>
+                            <textarea id="prod-desc" class="input-field text-sm" rows="2"
+                                placeholder="Jelaskan kualitas, rasa, dll..." required></textarea>
+                        </div>
+                        <button type="submit"
+                            class="w-full bg-primary text-white font-semibold py-2.5 rounded-lg text-sm mt-2">
+                            Simpan ke Etalase
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Etalase List -->
+                <div class="bg-white flex-1 p-4 pb-20">
+                    <h4 class="font-bold text-dark mb-3">Etalase Anda</h4>
+                    <div id="my-etalase-list" class="space-y-3">
+                        <!-- Items rendered by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- TRANSAKSI TAB -->
+            <div id="transaksi-tab" class="tab-content hidden absolute inset-0 bg-gray-50 z-20 flex flex-col h-[100vh]">
+                <div class="p-4 border-b border-gray-200 flex items-center gap-3 sticky top-0 bg-white">
+                    <button onclick="navTo('akun-tab')" class="text-dark"><i
+                            class="ph ph-arrow-left text-xl"></i></button>
+                    <h2 class="font-poppins font-bold text-lg text-dark">Riwayat Transaksi</h2>
+                </div>
+                <div class="p-4 flex-1 overflow-y-auto" id="transaksi-list">
+                    <!-- Transactions injected by JS -->
+                </div>
+            </div>
+
+        </div>
+
+        <!-- BOTTOM NAVIGATION BAR -->
+        <nav id="bottom-nav"
+            class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[480px] bg-white border-t border-gray-200 z-10">
+            <div class="flex justify-between items-center px-6 py-2">
+                <button onclick="navTo('beranda-tab')" class="nav-btn active flex flex-col items-center gap-1 w-16"
+                    data-target="beranda-tab">
+                    <i class="ph ph-house text-2xl nav-icon"></i>
+                    <span class="text-[10px] font-medium nav-text">Beranda</span>
+                </button>
+                <button onclick="navTo('promo-tab')" class="nav-btn flex flex-col items-center gap-1 w-16"
+                    data-target="promo-tab">
+                    <i class="ph ph-tag text-2xl nav-icon"></i>
+                    <span class="text-[10px] font-medium nav-text">Promo</span>
+                </button>
+                <button onclick="navTo('keranjang-tab')" class="nav-btn flex flex-col items-center gap-1 w-16 relative"
+                    data-target="keranjang-tab">
+                    <i class="ph ph-shopping-cart text-2xl nav-icon"></i>
+                    <span class="text-[10px] font-medium nav-text">Keranjang</span>
+                    <span id="cart-badge-nav"
+                        class="absolute top-0 right-2 bg-secondary text-white text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center hidden">0</span>
+                </button>
+                <button onclick="navTo('akun-tab')" class="nav-btn flex flex-col items-center gap-1 w-16"
+                    data-target="akun-tab">
+                    <i class="ph ph-user text-2xl nav-icon"></i>
+                    <span class="text-[10px] font-medium nav-text">Akun</span>
+                </button>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay"
+        class="fixed inset-0 w-full h-full bg-white/90 z-[1000] flex flex-col justify-center items-center text-center opacity-0 pointer-events-none transition-opacity duration-300"
+        style="display: none;">
+        <div class="spinner"></div>
+        <h3 class="font-poppins font-semibold text-lg text-dark" id="loading-title">Memproses...</h3>
+        <p class="text-sm text-gray-500 mt-2" id="loading-text">Mohon tunggu sebentar</p>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+
+</html>
